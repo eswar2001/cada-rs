@@ -2,7 +2,7 @@
 use std::fs;
 use std::path::Path;
 use proc_macro2::Span;
-use syn::{parse_file, visit::{self, Visit}, File, Item, ItemFn, ItemImpl, ItemTrait};
+use syn::{parse_file, visit::{self, Visit}, File, Item, ItemFn, ItemImpl};
 #[cfg(span_locations)]
 use proc_macro2::{LineColumn, Span};
 use crate::types::{FileASTData, SourceLocation, TypedLiteral, FunctionCallVisitor, LiteralVisitor};

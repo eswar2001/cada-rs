@@ -1,10 +1,9 @@
 // src/differ.rs
 use std::collections::HashMap;
 use std::path::Path;
-use std::fs;
 use syn::{Item, ItemFn, ItemTrait,ItemImpl};
 
-use crate::ast_parser::{extract_file_ast, extract_module_name, format_node, get_source_code};
+use crate::ast_parser::{extract_file_ast, extract_module_name, format_node};
 use crate::git_ops::{checkout_branch, checkout_commit};
 use crate::types::{DetailedChanges, FileASTData};
 

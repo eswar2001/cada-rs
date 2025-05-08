@@ -1,6 +1,5 @@
 // src/main.rs
 use std::env;
-use std::path::Path;
 use std::process;
 
 mod ast_parser;
@@ -10,7 +9,6 @@ mod granular;
 mod output;
 mod types;
 
-use types::DetailedChanges;
 
 fn main() {
     // Check arguments

@@ -3,13 +3,12 @@ use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::Path;
-use serde_json::json;
 use syn::spanned::Spanned;
 use syn::ItemFn;
 
 use crate::ast_parser::{extract_file_ast, extract_function_calls, extract_literals, format_node, get_source_location, remove_duplicates};
 use crate::git_ops::{checkout_branch, checkout_commit};
-use crate::types::{CalledFunctionChanges, FileASTData, SourceLocation, TypedLiteral};
+use crate::types::{CalledFunctionChanges, FileASTData};
 
 // Get granular changes for functions between commits
 pub fn get_granular_change_for_functions(rust_files: &[String], local_repo_path: &str, output_path: &str) {
