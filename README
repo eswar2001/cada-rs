@@ -1,0 +1,62 @@
+# Rust AST Differ
+
+A tool for analyzing differences between Git commits at the abstract syntax tree (AST) level for Rust code. This tool is especially useful for understanding code changes in large Rust projects.
+
+## Features
+
+- Detects changes in functions, types, traits, and methods
+- Produces detailed JSON reports of all code changes
+- Provides granular analysis of function call changes
+- Handles new, modified, and deleted files
+- Tracks literals and function calls within changed functions
+
+## Installation
+
+### Prerequisites
+
+- Rust and Cargo (install via [rustup](https://rustup.rs/))
+- Git
+
+### Building from source
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/rust-ast-differ.git
+cd rust-ast-differ
+
+# Build the tool
+cargo build --release
+
+# The binary will be in target/release/rust-ast-differ
+```
+
+## Usage
+
+```bash
+rust-ast-differ <repoUrl> <localRepoPath> <branchName> <currentCommit> [outputPath]
+```
+
+### Parameters
+
+- `repoUrl`: URL of the Git repository
+- `localRepoPath`: Path where to clone/use the repository
+- `branchName`: Base branch to compare against
+- `currentCommit`: Target commit to analyze
+- `outputPath` (optional): Directory to store output files (defaults to "./")
+
+
+## Output Files
+
+The tool generates several JSON files in the output directory:
+
+- `all_code_changes.json`: All changes detected in the AST
+- `function_changes.json`: Changes specific to functions
+- `type_changes.json`: Changes specific to types (structs, enums, type aliases)
+- `interface_changes.json`: Changes specific to traits (interfaces)
+- `method_changes.json`: Changes specific to methods
+- `function_changes_granular.json`: Detailed changes within functions (added/removed function calls and literals)
+
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

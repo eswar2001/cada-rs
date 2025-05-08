@@ -1,0 +1,24 @@
+[package]
+name = "rust-ast-differ"
+version = "0.1.0"
+edition = "2021"
+description = "A tool to analyze AST differences between Git commits for Rust code"
+license = "MIT"
+
+[dependencies]
+# Syntax parsing and manipulation
+syn = { version = "2.0", features = ["full", "extra-traits", "visit", "visit-mut", "parsing", "printing"] }
+quote = "1.0"
+proc-macro2 = {version = "1.0", features = ["span-locations"]}
+
+# Serialization and deserialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Command line argument parsing
+clap = { version = "4.4", features = ["derive"] }
+
+# Other utilities
+thiserror = "1.0"
+anyhow = "1.0"
+location = "0.1.0"
