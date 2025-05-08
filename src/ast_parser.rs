@@ -143,49 +143,49 @@ fn process_impl_block(impl_block: &ItemImpl, ast_data: &mut FileASTData) {
 }
 
 // Extract source code from the original content
-pub fn get_source_code(span: Span, file_content: &str) -> String {
-    let start: proc_macro2::LineColumn = span.start();
-    let end = span.end();
+// pub fn get_source_code(span: Span, file_content: &str) -> String {
+//     let start = span.start();
+//     let end = span.end();
     
-    // Safety check to avoid out-of-bounds access
-    let content_bytes = file_content.as_bytes();
-    if start.line == 0 || end.line == 0 || 
-       start.line > file_content.lines().count() || 
-       end.line > file_content.lines().count() {
-        return String::new();
-    }
+//     // Safety check to avoid out-of-bounds access
+//     let content_bytes = file_content.as_bytes();
+//     if start.line == 0 || end.line == 0 || 
+//        start.line > file_content.lines().count() || 
+//        end.line > file_content.lines().count() {
+//         return String::new();
+//     }
     
-    // Find the byte offsets
-    let mut start_offset = 0;
-    let mut end_offset = 0;
-    let mut current_line = 1;
-    let mut current_column = 1;
+//     // Find the byte offsets
+//     let mut start_offset = 0;
+//     let mut end_offset = 0;
+//     let mut current_line = 1;
+//     let mut current_column = 1;
     
-    for (i, byte) in content_bytes.iter().enumerate() {
-        if current_line == start.line && current_column == start.column {
-            start_offset = i;
-        }
+//     for (i, byte) in content_bytes.iter().enumerate() {
+//         if current_line == start.line && current_column == start.column {
+//             start_offset = i;
+//         }
         
-        if current_line == end.line && current_column == end.column {
-            end_offset = i;
-            break;
-        }
+//         if current_line == end.line && current_column == end.column {
+//             end_offset = i;
+//             break;
+//         }
         
-        // Update line and column counters
-        if *byte == b'\n' {
-            current_line += 1;
-            current_column = 1;
-        } else {
-            current_column += 1;
-        }
-    }
+//         // Update line and column counters
+//         if *byte == b'\n' {
+//             current_line += 1;
+//             current_column = 1;
+//         } else {
+//             current_column += 1;
+//         }
+//     }
     
-    if start_offset < end_offset && end_offset <= content_bytes.len() {
-        String::from_utf8_lossy(&content_bytes[start_offset..end_offset]).to_string()
-    } else {
-        String::new()
-    }
-}
+//     if start_offset < end_offset && end_offset <= content_bytes.len() {
+//         String::from_utf8_lossy(&content_bytes[start_offset..end_offset]).to_string()
+//     } else {
+//         String::new()
+//     }
+// }
 
 // Get source location from a span
 pub fn get_source_location(span: Span, filename: &str) -> SourceLocation {
