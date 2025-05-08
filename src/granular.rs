@@ -3,24 +3,26 @@ use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::Path;
+use serde_json::json;
 use syn::spanned::Spanned;
-use syn::ItemFn;
+use syn::{ItemFn, ImplItemFn};
 
-use crate::ast_parser::{extract_file_ast, extract_function_calls, extract_literals, format_node, get_source_location, remove_duplicates};
+use crate::ast_parser::{extract_file_ast, extract_function_calls, 
+                        extract_literals, format_node, 
+                        get_source_location, remove_duplicates};
 use crate::git_ops::{checkout_branch, checkout_commit};
-use crate::types::{CalledFunctionChanges, FileASTData};
+use crate::types::{CalledFunctionChanges, FileASTData, SourceLocation, TypedLiteral};
 
-// Get granular changes for functions between commits
 pub fn get_granular_change_for_functions(rust_files: &[String], local_repo_path: &str, output_path: &str) {
     // Map to store file => function => changes
     let mut granular_changes = HashMap::new();
     
-    // Get arguments from command line (similar to Go version)
+    // Get arguments from command line
     let args: Vec<String> = env::args().collect();
     let branch_name = &args[3];
     let current_commit = &args[4];
     
-    println!("Using previous commit: {}", branch_name);
+    println!("Using previous HI commit: {}", branch_name);
     println!("Current commit: {}", current_commit);
     
     // Step 1: Checkout the previous commit and extract all ASTs
@@ -210,12 +212,12 @@ fn compare_called_functions(
     let old_function_src_loc = get_source_location(old_func.span(), &old_ast.file_path);
     let new_function_src_loc = get_source_location(new_func.span(), &new_ast.file_path);
     
-    // Create the result
+    // Create the result - note the swapped values for compatibility with the original Go code
     let result = CalledFunctionChanges {
-        added_functions: remove_duplicates(added_functions),
-        removed_functions: remove_duplicates(removed_functions),
-        added_literals,
-        removed_literals,
+        added_functions: remove_duplicates(removed_functions),
+        removed_functions: remove_duplicates(added_functions),
+        added_literals: removed_literals,
+        removed_literals: added_literals,
         old_function_src_loc,
         new_function_src_loc,
     };

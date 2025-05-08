@@ -31,6 +31,15 @@ pub struct CalledFunctionChanges {
     pub new_function_src_loc: SourceLocation,
 }
 
+impl CalledFunctionChanges {
+    pub fn has_changes(&self) -> bool {
+        !self.added_functions.is_empty() ||
+        !self.removed_functions.is_empty() ||
+        !self.added_literals.is_empty() ||
+        !self.removed_literals.is_empty()
+    }
+}
+
 // NamedCode represents a named code entity with its source
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NamedCode {

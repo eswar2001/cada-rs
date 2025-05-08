@@ -17,7 +17,6 @@ fn main() {
         println!("Usage: rust-ast-differ <repoUrl> <localRepoPath> <branchName> <currentCommit> [outputPath]");
         process::exit(1);
     }
-
     let repo_url = &args[1];
     let local_repo_path = &args[2];
     let branch_name = &args[3];
