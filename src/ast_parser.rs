@@ -3,8 +3,6 @@ use std::fs;
 use std::path::Path;
 use proc_macro2::Span;
 use syn::{parse_file, visit::{self, Visit}, File, Item, ItemFn, ItemImpl};
-#[cfg(span_locations)]
-use proc_macro2::{LineColumn, Span};
 use crate::types::{FileASTData, SourceLocation, TypedLiteral, FunctionCallVisitor, LiteralVisitor};
 
 // Extract the module name from a Rust file
@@ -146,7 +144,7 @@ fn process_impl_block(impl_block: &ItemImpl, ast_data: &mut FileASTData) {
 
 // Extract source code from the original content
 pub fn get_source_code(span: Span, file_content: &str) -> String {
-    let start = span.start();
+    let start: proc_macro2::LineColumn = span.start();
     let end = span.end();
     
     // Safety check to avoid out-of-bounds access
