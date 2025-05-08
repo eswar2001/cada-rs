@@ -54,7 +54,7 @@ fn main() {
     let deleted_files = match git_ops::get_deleted_files(branch_name, current_commit, local_repo_path) {
         Ok(files) => files,
         Err(e) => {
-            println!("Warning: Error getting deleted files: {}", e);
+            println!("Warning: Error getting    deleted files: {}", e);
             vec![]
         }
     };
